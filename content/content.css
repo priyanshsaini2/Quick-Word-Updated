@@ -1,0 +1,285 @@
+/* ============================================
+   QuickWord – Content Script Styles
+   Scoped with #qw- prefix to prevent conflicts
+   ============================================ */
+/* Note: No @import to avoid CSP blocks on strict sites.
+   Inter is loaded in the popup page; system fonts used here. */
+
+/* ── Define Button ── */
+#qw-define-btn {
+  position: absolute;
+  z-index: 2147483640;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #4F46E5, #7C3AED);
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.4);
+  user-select: none;
+  white-space: nowrap;
+  transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.15s ease;
+  animation: qw-fade-in 0.18s ease;
+}
+
+#qw-define-btn:hover {
+  transform: scale(1.15);
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.5);
+}
+
+/* ── Popup Overlay (click-away layer) ── */
+#qw-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483641;
+  background: transparent;
+}
+
+/* ── Popup Card ── */
+#qw-popup-card {
+  position: absolute;
+  z-index: 2147483647;
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  background: #0F0F1A;
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  border-radius: 16px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  font-family: 'Inter', system-ui, sans-serif;
+  color: #E4E4F0;
+  overflow: hidden;
+  animation: qw-slide-up 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ── Popup Header ── */
+.qw-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px 16px 12px;
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.2), rgba(124, 58, 237, 0.15));
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.qw-word-block {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.qw-word {
+  font-size: 20px;
+  font-weight: 700;
+  color: #F0F0FF;
+  line-height: 1.2;
+  text-transform: capitalize;
+}
+
+.qw-phonetic {
+  font-size: 12px;
+  color: #9B8FD8;
+  font-style: italic;
+}
+
+.qw-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.qw-audio-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(79, 70, 229, 0.25);
+  border: 1px solid rgba(79, 70, 229, 0.4);
+  color: #A5B4FC;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.15s, transform 0.15s;
+}
+
+.qw-audio-btn:hover {
+  background: rgba(79, 70, 229, 0.45);
+  transform: scale(1.1);
+}
+
+.qw-close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.qw-close-btn:hover {
+  background: rgba(255,255,255,0.12);
+  color: #ccc;
+}
+
+/* ── Popup Body ── */
+.qw-body {
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 320px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124,58,237,0.4) transparent;
+}
+
+.qw-body::-webkit-scrollbar { width: 4px; }
+.qw-body::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.4); border-radius: 4px; }
+
+/* ── Section Labels ── */
+.qw-section-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: #6B63A8;
+  margin-bottom: 4px;
+}
+
+/* ── Definitions ── */
+.qw-def-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.qw-def-item {
+  font-size: 13px;
+  color: #C4C4DA;
+  line-height: 1.5;
+  padding-left: 10px;
+  border-left: 2px solid rgba(124, 58, 237, 0.5);
+}
+
+/* ── Examples ── */
+.qw-example-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.qw-example-item {
+  font-size: 12px;
+  color: #8B8BAA;
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.qw-example-item::before {
+  content: '"';
+  color: #5B52A0;
+}
+
+.qw-example-item::after {
+  content: '"';
+  color: #5B52A0;
+}
+
+/* ── Synonyms ── */
+.qw-synonyms {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.qw-synonym-chip {
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 14px;
+  background: rgba(79, 70, 229, 0.15);
+  border: 1px solid rgba(79, 70, 229, 0.25);
+  color: #A5B4FC;
+}
+
+/* ── Footer ── */
+.qw-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  background: rgba(0,0,0,0.15);
+}
+
+.qw-saved-badge {
+  font-size: 11px;
+  color: #5BA85B;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.qw-brand {
+  font-size: 10px;
+  color: #3D3860;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ── Loading State ── */
+.qw-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  color: #6B63A8;
+  font-size: 13px;
+}
+
+.qw-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(124, 58, 237, 0.2);
+  border-top-color: #7C3AED;
+  border-radius: 50%;
+  animation: qw-spin 0.7s linear infinite;
+}
+
+/* ── Error State ── */
+.qw-error {
+  padding: 16px;
+  text-align: center;
+  color: #F87171;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ── Animations ── */
+@keyframes qw-fade-in {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes qw-slide-up {
+  from { opacity: 0; transform: translateY(10px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes qw-spin {
+  to { transform: rotate(360deg); }
+}

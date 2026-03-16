@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickWord – My Words</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-brand">
+        <span class="header-logo">📖</span>
+        <div>
+          <h1 class="header-title">QuickWord</h1>
+          <p class="header-subtitle">My Words</p>
+        </div>
+      </div>
+      <span class="word-count-badge" id="word-count-badge">0 words</span>
+    </header>
+
+    <!-- Search & Controls -->
+    <div class="controls">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder="Search your words…"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Search saved words"
+        />
+        <button class="clear-search" id="clear-search" title="Clear search" aria-label="Clear search">✕</button>
+      </div>
+      <div class="sort-controls">
+        <button class="sort-btn active" id="sort-newest" data-sort="newest" title="Sort newest first" aria-pressed="true">Newest</button>
+        <button class="sort-btn" id="sort-oldest" data-sort="oldest" title="Sort oldest first" aria-pressed="false">Oldest</button>
+        <button class="sort-btn" id="sort-alpha" data-sort="alpha" title="Sort A–Z" aria-pressed="false">A–Z</button>
+      </div>
+    </div>
+
+    <!-- Word List -->
+    <main class="word-list" id="word-list" role="list" aria-label="Saved words"></main>
+
+    <!-- Empty State -->
+    <div class="empty-state" id="empty-state" hidden>
+      <div class="empty-icon">✨</div>
+      <h2 class="empty-title">No words yet!</h2>
+      <p class="empty-desc">Select any word on a webpage and click the <strong>📖 icon</strong> to save it here.</p>
+    </div>
+
+    <!-- No Results State -->
+    <div class="empty-state" id="no-results-state" hidden>
+      <div class="empty-icon">🔍</div>
+      <h2 class="empty-title">No matches found</h2>
+      <p class="empty-desc">Try a different search term.</p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <button class="clear-all-btn" id="clear-all-btn" title="Clear all saved words">🗑 Clear All Words</button>
+    </footer>
+  </div>
+
+  <!-- Confirm Dialog -->
+  <div class="dialog-backdrop" id="dialog-backdrop" hidden>
+    <div class="dialog-box" role="alertdialog" aria-modal="true" aria-labelledby="dialog-title">
+      <h3 class="dialog-title" id="dialog-title">Clear all words?</h3>
+      <p class="dialog-desc">This will permanently delete all <span id="dialog-count"></span> saved words. This cannot be undone.</p>
+      <div class="dialog-actions">
+        <button class="dialog-btn dialog-cancel" id="dialog-cancel">Cancel</button>
+        <button class="dialog-btn dialog-confirm" id="dialog-confirm">Delete All</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../lib/local-dictionary.js"></script>
+  <script src="../lib/storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
